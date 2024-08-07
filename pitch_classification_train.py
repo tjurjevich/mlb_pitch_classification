@@ -17,14 +17,16 @@ import numpy as np
 import seaborn
 from imblearn.combine import SMOTETomek
 from imblearn.under_sampling import TomekLinks
+from pybaseball import statcast, cache
 
 warnings.filterwarnings(action='ignore', category=UserWarning)
 
 
-# Load statcast training data.
+# Load statcast training data. UPDATE: statcast_data_TRAIN.csv file too large to upload to repository. Code has been updated to pull directly in this script.
 def upload_data():
-    file_loc = f'{os.getcwd()}/statcast_data_TRAIN.csv'
-    return pd.read_csv(file_loc)
+    #file_loc = f'{os.getcwd()}/statcast_data_TRAIN.csv'
+    cache.enable()
+    return statcast(start_dt='2024-03-28', end_dt='2024-08-24')
 
 # Reclassify pitches that are seen very rarely. Define globally to use for future predictions if needed.
 def reclassify_pitches(data: pd.core.frame.DataFrame):
